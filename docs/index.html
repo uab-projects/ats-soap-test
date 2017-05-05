@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Memoria_SOAP</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+
+    <style>
+    .markdown-preview-enhanced pre.editor-colors.editor-colors,
+.markdown-preview-enhanced code {
+  background-color: #f7f7f7 !important;
+}
+pre.editor-colors {
+  background-color: #fff;
+  color: #333;
+}
+pre.editor-colors .line.cursor-line {
+  background-color: #f5f5f5;
+}
+pre.editor-colors .invisible {
+  color: #c0c0c0;
+}
+pre.editor-colors .cursor {
+  border-left: 2px solid #000;
+}
+pre.editor-colors .selection .region {
+  background-color: #c8c8fa;
+}
+pre.editor-colors .bracket-matcher .region {
+  border-bottom: 1px solid #000;
+  box-sizing: border-box;
+}
+pre.editor-colors .invisible-character {
+  color: #c0c0c0;
+}
+pre.editor-colors .indent-guide {
+  color: #c0c0c0;
+}
+pre.editor-colors .wrap-guide {
+  background-color: #c0c0c0;
+}
+pre.editor-colors .gutter {
+  background-color: #fff;
+  color: #333;
+}
+pre.editor-colors .gutter .line-number {
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+}
+pre.editor-colors .gutter .line-number.cursor-line {
+  color: #333;
+  background-color: #f5f5f5;
+}
+pre.editor-colors .gutter .line-number.cursor-line-no-selection {
+  background-color: transparent;
+}
+pre.editor-colors .gutter .line-number .icon-right {
+  color: #333;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed.git-line-removed::before {
+  bottom: -3px;
+}
+pre.editor-colors .gutter:not(.git-diff-icon) .line-number.git-line-removed::after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  width: 25px;
+  border-bottom: 1px dotted rgba(255, 236, 236, 0.5);
+  pointer-events: none;
+}
+pre.editor-colors .gutter .line-number.folded,
+pre.editor-colors .gutter .line-number:after,
+pre.editor-colors .fold-marker:after {
+  color: #333;
+}
+pre.editor-colors .search-results .mpe-syntax--marker .region {
+  background-color: transparent;
+  border: 1px solid #ed6a43;
+}
+pre.editor-colors .search-results .mpe-syntax--marker.current-result .region {
+  border: 1px solid #fff;
+}
+.mpe-syntax--comment,
+.mpe-syntax--punctuation.mpe-syntax--definition.mpe-syntax--comment,
+.mpe-syntax--string.mpe-syntax--comment {
+  color: #969896;
+}
+.mpe-syntax--constant,
+.mpe-syntax--entity.mpe-syntax--name.mpe-syntax--constant,
+.mpe-syntax--variable.mpe-syntax--other.mpe-syntax--constant,
+.mpe-syntax--variable.mpe-syntax--language {
+  color: #0086b3;
+}
+.mpe-syntax--entity,
+.mpe-syntax--entity.mpe-syntax--name {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #795da3;
+}
+.mpe-syntax--variable.mpe-syntax--parameter.mpe-syntax--function {
+  color: #333;
+}
+.mpe-syntax--entity.mpe-syntax--name.mpe-syntax--tag {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #63a35c;
+}
+.mpe-syntax--keyword {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #a71d5d;
+}
+.mpe-syntax--storage,
+.mpe-syntax--storage.mpe-syntax--type {
+  color: #a71d5d;
+}
+.mpe-syntax--storage.mpe-syntax--modifier.mpe-syntax--package,
+.mpe-syntax--storage.mpe-syntax--modifier.mpe-syntax--import,
+.mpe-syntax--storage.mpe-syntax--type.mpe-syntax--java {
+  color: #333;
+}
+.mpe-syntax--string,
+.mpe-syntax--punctuation.mpe-syntax--definition.mpe-syntax--string,
+.mpe-syntax--string .mpe-syntax--punctuation.mpe-syntax--section.mpe-syntax--embedded .mpe-syntax--source {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #183691;
+}
+.mpe-syntax--support {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #0086b3;
+}
+.mpe-syntax--meta.mpe-syntax--property-name {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #0086b3;
+}
+.mpe-syntax--variable {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #ed6a43;
+}
+.mpe-syntax--variable.mpe-syntax--other {
+  color: #333;
+}
+.mpe-syntax--invalid.mpe-syntax--broken {
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: underline;
+  color: #b52a1d;
+}
+.mpe-syntax--invalid.mpe-syntax--deprecated {
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: underline;
+  color: #b52a1d;
+}
+.mpe-syntax--invalid.mpe-syntax--illegal {
+  font-style: italic;
+  text-decoration: underline;
+  background-color: #b52a1d;
+  color: #f8f8f8;
+}
+.mpe-syntax--carriage-return {
+  font-style: italic;
+  text-decoration: underline;
+  background-color: #b52a1d;
+  color: #f8f8f8;
+  undefined: ^M;
+}
+.mpe-syntax--invalid.mpe-syntax--unimplemented {
+  font-weight: bold;
+  font-style: italic;
+  text-decoration: underline;
+  color: #b52a1d;
+}
+.mpe-syntax--message.mpe-syntax--error {
+  color: #b52a1d;
+}
+.mpe-syntax--string .mpe-syntax--source {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #333;
+}
+.mpe-syntax--string .mpe-syntax--variable {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #0086b3;
+}
+.mpe-syntax--source.mpe-syntax--regexp,
+.mpe-syntax--string.mpe-syntax--regexp {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #183691;
+}
+.mpe-syntax--string.mpe-syntax--regexp.mpe-syntax--character-class,
+.mpe-syntax--string.mpe-syntax--regexp .mpe-syntax--constant.mpe-syntax--character.mpe-syntax--escape,
+.mpe-syntax--string.mpe-syntax--regexp .mpe-syntax--source.mpe-syntax--ruby.mpe-syntax--embedded,
+.mpe-syntax--string.mpe-syntax--regexp .mpe-syntax--string.mpe-syntax--regexp.mpe-syntax--arbitrary-repitition {
+  color: #183691;
+}
+.mpe-syntax--string.mpe-syntax--regexp .mpe-syntax--constant.mpe-syntax--character.mpe-syntax--escape {
+  font-weight: bold;
+  color: #63a35c;
+}
+.mpe-syntax--support.mpe-syntax--constant {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #0086b3;
+}
+.mpe-syntax--support.mpe-syntax--variable {
+  color: #0086b3;
+}
+.mpe-syntax--meta.mpe-syntax--module-reference {
+  color: #0086b3;
+}
+.mpe-syntax--markup.mpe-syntax--list {
+  color: #693a17;
+}
+.mpe-syntax--markup.mpe-syntax--heading,
+.mpe-syntax--markup.mpe-syntax--heading .mpe-syntax--entity.mpe-syntax--name {
+  font-weight: bold;
+  color: #1d3e81;
+}
+.mpe-syntax--markup.mpe-syntax--quote {
+  color: #008080;
+}
+.mpe-syntax--markup.mpe-syntax--italic {
+  font-style: italic;
+  color: #333;
+}
+.mpe-syntax--markup.mpe-syntax--bold {
+  font-weight: bold;
+  color: #333;
+}
+.mpe-syntax--markup.mpe-syntax--raw {
+  font-weight: normal;
+  font-style: normal;
+  text-decoration: none;
+  color: #0086b3;
+}
+.mpe-syntax--markup.mpe-syntax--deleted,
+.mpe-syntax--meta.mpe-syntax--diff.mpe-syntax--header.mpe-syntax--from-file,
+.mpe-syntax--punctuation.mpe-syntax--definition.mpe-syntax--deleted {
+  background-color: #ffecec;
+  color: #bd2c00;
+}
+.mpe-syntax--markup.mpe-syntax--inserted,
+.mpe-syntax--meta.mpe-syntax--diff.mpe-syntax--header.mpe-syntax--to-file,
+.mpe-syntax--punctuation.mpe-syntax--definition.mpe-syntax--inserted {
+  background-color: #eaffea;
+  color: #55a532;
+}
+.mpe-syntax--markup.mpe-syntax--changed,
+.mpe-syntax--punctuation.mpe-syntax--definition.mpe-syntax--changed {
+  background-color: #ffe3b4;
+  color: #ef9700;
+}
+.mpe-syntax--markup.mpe-syntax--ignored,
+.mpe-syntax--markup.mpe-syntax--untracked {
+  color: #d8d8d8;
+  background-color: #808080;
+}
+.mpe-syntax--meta.mpe-syntax--diff.mpe-syntax--range {
+  color: #795da3;
+  font-weight: bold;
+}
+.mpe-syntax--meta.mpe-syntax--diff.mpe-syntax--header {
+  color: #0086b3;
+}
+.mpe-syntax--meta.mpe-syntax--separator {
+  font-weight: bold;
+  color: #1d3e81;
+}
+.mpe-syntax--meta.mpe-syntax--output {
+  color: #1d3e81;
+}
+.mpe-syntax--brackethighlighter.mpe-syntax--tag,
+.mpe-syntax--brackethighlighter.mpe-syntax--curly,
+.mpe-syntax--brackethighlighter.mpe-syntax--round,
+.mpe-syntax--brackethighlighter.mpe-syntax--square,
+.mpe-syntax--brackethighlighter.mpe-syntax--angle,
+.mpe-syntax--brackethighlighter.mpe-syntax--quote {
+  color: #595e62;
+}
+.mpe-syntax--brackethighlighter.mpe-syntax--unmatched {
+  color: #b52a1d;
+}
+.mpe-syntax--sublimelinter.mpe-syntax--mark.mpe-syntax--error {
+  color: #b52a1d;
+}
+.mpe-syntax--sublimelinter.mpe-syntax--mark.mpe-syntax--warning {
+  color: #ed6a43;
+}
+.mpe-syntax--sublimelinter.mpe-syntax--gutter-mark {
+  color: #c0c0c0;
+}
+.mpe-syntax--constant.mpe-syntax--other.mpe-syntax--reference.mpe-syntax--link,
+.mpe-syntax--string.mpe-syntax--other.mpe-syntax--link {
+  color: #183691;
+  text-decoration: underline;
+}
+.markdown-preview-enhanced {
+  font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  background-color: #fff;
+  overflow: initial;
+  margin: 10px 13px 10px 13px;
+  padding: 2em;
+  box-sizing: border-box;
+  word-wrap: break-word;
+}
+.markdown-preview-enhanced > :first-child {
+  margin-top: 0;
+}
+.markdown-preview-enhanced[is="space-pen-div"] {
+  width: 100%;
+  margin: 0;
+  z-index: 999;
+  overflow: scroll;
+  font-size: 16px;
+  display: block;
+  position: absolute;
+}
+.markdown-preview-enhanced h1,
+.markdown-preview-enhanced h2,
+.markdown-preview-enhanced h3,
+.markdown-preview-enhanced h4,
+.markdown-preview-enhanced h5,
+.markdown-preview-enhanced h6 {
+  line-height: 1.2;
+  margin-top: 1em;
+  margin-bottom: 16px;
+  color: #000000;
+}
+.markdown-preview-enhanced h1 {
+  font-size: 2.25em;
+  font-weight: 300;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #d6d6d6;
+}
+.markdown-preview-enhanced h2 {
+  font-size: 1.75em;
+  font-weight: 400;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid #d6d6d6;
+}
+.markdown-preview-enhanced h3 {
+  font-size: 1.5em;
+  font-weight: 500;
+}
+.markdown-preview-enhanced h4 {
+  font-size: 1.25em;
+  font-weight: 600;
+}
+.markdown-preview-enhanced h5 {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+.markdown-preview-enhanced h6 {
+  font-size: 1.0em;
+  font-weight: 600;
+}
+.markdown-preview-enhanced h1,
+.markdown-preview-enhanced h2,
+.markdown-preview-enhanced h3,
+.markdown-preview-enhanced h4,
+.markdown-preview-enhanced h5 {
+  font-weight: 600;
+}
+.markdown-preview-enhanced h5 {
+  font-size: 1em;
+}
+.markdown-preview-enhanced h6 {
+  color: #5c5c5c;
+}
+.markdown-preview-enhanced h1,
+.markdown-preview-enhanced h2 {
+  border-bottom: 1px solid #d6d6d6;
+}
+.markdown-preview-enhanced strong {
+  color: #000000;
+}
+.markdown-preview-enhanced del {
+  color: #5c5c5c;
+}
+.markdown-preview-enhanced a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+.markdown-preview-enhanced a {
+  color: #08c;
+  text-decoration: none;
+}
+.markdown-preview-enhanced a:hover {
+  color: #0050a3;
+  text-decoration: none;
+}
+.markdown-preview-enhanced img,
+.markdown-preview-enhanced svg {
+  max-width: 100%;
+}
+.markdown-preview-enhanced > p {
+  margin-top: 0;
+  margin-bottom: 16px;
+  word-wrap: break-word;
+}
+.markdown-preview-enhanced > ul,
+.markdown-preview-enhanced > ol {
+  margin-bottom: 16px;
+}
+.markdown-preview-enhanced ul,
+.markdown-preview-enhanced ol {
+  padding-left: 2em;
+}
+.markdown-preview-enhanced ul.no-list,
+.markdown-preview-enhanced ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+.markdown-preview-enhanced ul ul,
+.markdown-preview-enhanced ul ol,
+.markdown-preview-enhanced ol ol,
+.markdown-preview-enhanced ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.markdown-preview-enhanced li {
+  margin-bottom: 0;
+}
+.markdown-preview-enhanced li.task-list-item {
+  list-style: none;
+}
+.markdown-preview-enhanced li > p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.markdown-preview-enhanced .task-list-item-checkbox {
+  margin: 0 0.2em 0.25em -1.6em;
+  vertical-align: middle;
+}
+.markdown-preview-enhanced .task-list-item-checkbox:hover {
+  cursor: pointer;
+}
+.markdown-preview-enhanced blockquote {
+  margin: 16px 0;
+  font-size: inherit;
+  padding: 0 15px;
+  color: #5c5c5c;
+  border-left: 4px solid #d6d6d6;
+}
+.markdown-preview-enhanced blockquote > :first-child {
+  margin-top: 0;
+}
+.markdown-preview-enhanced blockquote > :last-child {
+  margin-bottom: 0;
+}
+.markdown-preview-enhanced hr {
+  height: 4px;
+  margin: 32px 0;
+  background-color: #d6d6d6;
+  border: 0 none;
+}
+.markdown-preview-enhanced table {
+  margin: 10px 0 15px 0;
+  border-collapse: collapse;
+  border-spacing: 0;
+  display: block;
+  width: 100%;
+  overflow: auto;
+  word-break: normal;
+  word-break: keep-all;
+}
+.markdown-preview-enhanced table th {
+  font-weight: bold;
+  color: #000000;
+}
+.markdown-preview-enhanced table td,
+.markdown-preview-enhanced table th {
+  border: 1px solid #d6d6d6;
+  padding: 6px 13px;
+}
+.markdown-preview-enhanced dl {
+  padding: 0;
+}
+.markdown-preview-enhanced dl dt {
+  padding: 0;
+  margin-top: 16px;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: bold;
+}
+.markdown-preview-enhanced dl dd {
+  padding: 0 16px;
+  margin-bottom: 16px;
+}
+.markdown-preview-enhanced code {
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-size: 0.85em !important;
+  color: #000000;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+  padding: 0.2em 0;
+}
+.markdown-preview-enhanced code::before,
+.markdown-preview-enhanced code::after {
+  letter-spacing: -0.2em;
+  content: "\00a0";
+}
+.markdown-preview-enhanced pre > code {
+  padding: 0;
+  margin: 0;
+  font-size: 0.85em !important;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+.markdown-preview-enhanced .highlight {
+  margin-bottom: 16px;
+}
+.markdown-preview-enhanced .highlight pre,
+.markdown-preview-enhanced pre {
+  font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
+  padding: 16px;
+  overflow: auto;
+  font-size: 0.85em !important;
+  line-height: 1.45;
+  color: #333;
+  background-color: #f0f0f0 !important;
+  border: #d6d6d6;
+  border-radius: 3px;
+}
+.markdown-preview-enhanced .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+.markdown-preview-enhanced pre {
+  word-wrap: break-word;
+  white-space: normal;
+  word-break: break-all;
+}
+.markdown-preview-enhanced pre .section {
+  opacity: 1;
+}
+.markdown-preview-enhanced pre code,
+.markdown-preview-enhanced pre tt {
+  display: inline;
+  max-width: initial;
+  padding: 0;
+  margin: 0;
+  overflow: initial;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+.markdown-preview-enhanced pre code:before,
+.markdown-preview-enhanced pre tt:before,
+.markdown-preview-enhanced pre code:after,
+.markdown-preview-enhanced pre tt:after {
+  content: normal;
+}
+.markdown-preview-enhanced p,
+.markdown-preview-enhanced blockquote,
+.markdown-preview-enhanced ul,
+.markdown-preview-enhanced ol,
+.markdown-preview-enhanced dl,
+.markdown-preview-enhanced pre {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+.markdown-preview-enhanced kbd {
+  color: #000000;
+  border: 1px solid #d6d6d6;
+  border-bottom: 2px solid #c7c7c7;
+  padding: 2px 4px;
+  background-color: #f0f0f0;
+  border-radius: 3px;
+}
+.markdown-preview-enhanced .pagebreak,
+.markdown-preview-enhanced .newpage {
+  page-break-before: always;
+}
+@media screen and (min-width: 914px) {
+  .markdown-preview-enhanced {
+    width: 980px;
+    margin: 10px auto;
+    background: #fff;
+  }
+}
+@media screen and (max-width: 400px) {
+  .markdown-preview-enhanced {
+    font-size: 14px;
+    margin: 0 auto;
+    padding: 15px;
+  }
+}
+@media print {
+  .markdown-preview-enhanced {
+    background-color: #fff;
+    /*table,*/
+  }
+  .markdown-preview-enhanced h1,
+  .markdown-preview-enhanced h2,
+  .markdown-preview-enhanced h3,
+  .markdown-preview-enhanced h4,
+  .markdown-preview-enhanced h5,
+  .markdown-preview-enhanced h6 {
+    color: #000000;
+    page-break-after: avoid;
+  }
+  .markdown-preview-enhanced blockquote {
+    color: #5c5c5c;
+  }
+  .markdown-preview-enhanced pre {
+    page-break-inside: avoid;
+  }
+  .markdown-preview-enhanced table {
+    display: table;
+  }
+  .markdown-preview-enhanced img {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+  }
+  .markdown-preview-enhanced pre,
+  .markdown-preview-enhanced code {
+    word-wrap: break-word;
+    white-space: normal;
+  }
+}
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk {
+  position: relative;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk .output-div {
+  overflow-x: auto;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk .output-div svg {
+  display: block;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk pre {
+  cursor: text;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk .btn-group {
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: none;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk .btn-group .run-btn,
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk .btn-group .run-all-btn {
+  float: right;
+  margin-left: 4px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  color: #eee;
+  background-color: #528bff;
+  background-image: none;
+  border: none;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk .btn-group .run-btn:hover,
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk .btn-group .run-all-btn:hover {
+  background-color: #4b7fe8;
+  cursor: pointer;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk:hover .btn-group {
+  display: block;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk .status {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.85em;
+  color: inherit;
+  padding: 2px 6px;
+  background-color: rgba(0, 0, 0, 0.04);
+  display: none;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk.running .btn-group {
+  display: none;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .code-chunk.running .status {
+  display: block;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .back-to-top-btn,
+.markdown-preview-enhanced[is="space-pen-div"] .refresh-btn {
+  position: fixed;
+  display: none;
+  right: 24px;
+  top: 54px;
+}
+.markdown-preview-enhanced[is="space-pen-div"] .back-to-top-btn {
+  right: 72px;
+}
+.markdown-preview-enhanced[is="space-pen-div"]:hover .back-to-top-btn,
+.markdown-preview-enhanced[is="space-pen-div"]:hover .refresh-btn {
+  display: block;
+  opacity: 0.4;
+}
+.markdown-preview-enhanced[is="space-pen-div"]:hover .back-to-top-btn:hover,
+.markdown-preview-enhanced[is="space-pen-div"]:hover .refresh-btn:hover {
+  opacity: 1.0;
+}
+.markdown-preview-enhanced:not([is="space-pen-div"]) .code-chunk .btn-group {
+  display: none;
+}
+.markdown-preview-enhanced:not([is="space-pen-div"]) .code-chunk .status {
+  display: none;
+}
+.markdown-preview-enhanced:not([is="space-pen-div"]) .back-to-top-btn {
+  display: none;
+}
+/*
+ * Reveal.js styles
+ */
+[data-presentation-preview-mode] {
+  background-color: #f4f4f4;
+}
+[data-presentation-preview-mode] .preview-slides {
+  width: 100%;
+}
+[data-presentation-preview-mode] .preview-slides .slide {
+  position: relative;
+  background-color: #fff !important;
+  padding: 2em !important;
+  margin-bottom: 12px;
+  text-align: left !important;
+  display: flex;
+  align-items: center;
+  border: 1px solid #e6e6e6;
+  box-shadow: 0px 0px 16px 4px #eeeeee;
+  font-size: 24px;
+}
+[data-presentation-preview-mode] .preview-slides .slide h1,
+[data-presentation-preview-mode] .preview-slides .slide h2,
+[data-presentation-preview-mode] .preview-slides .slide h3,
+[data-presentation-preview-mode] .preview-slides .slide h4,
+[data-presentation-preview-mode] .preview-slides .slide h5,
+[data-presentation-preview-mode] .preview-slides .slide h6 {
+  margin-top: 0;
+}
+[data-presentation-preview-mode] .preview-slides .slide .background-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+[data-presentation-preview-mode] .preview-slides .slide .background-iframe,
+[data-presentation-preview-mode] .preview-slides .slide .background-iframe-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  border: none;
+  z-index: 1;
+}
+[data-presentation-preview-mode] .preview-slides .slide .background-iframe-overlay {
+  z-index: 2;
+}
+[data-presentation-preview-mode] section {
+  display: block;
+  width: 100%;
+  transform-style: preserve-3d;
+  font-size: 100%;
+  font: inherit;
+  z-index: 100;
+}
+.markdown-preview-enhanced[data-presentation-mode] {
+  font-size: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.markdown-preview-enhanced[data-presentation-mode] h1,
+.markdown-preview-enhanced[data-presentation-mode] h2,
+.markdown-preview-enhanced[data-presentation-mode] h3,
+.markdown-preview-enhanced[data-presentation-mode] h4,
+.markdown-preview-enhanced[data-presentation-mode] h5,
+.markdown-preview-enhanced[data-presentation-mode] h6 {
+  margin-top: 0;
+}
+.markdown-preview-enhanced[data-presentation-mode] strong {
+  font-weight: bold;
+}
+.markdown-preview-enhanced[data-presentation-mode]::-webkit-scrollbar {
+  display: none;
+}
+.markdown-preview-enhanced .slides {
+  text-align: left !important;
+}
+
+    /*
+ * Your Stylesheet
+ *
+ * This stylesheet is loaded when Atom starts up and is reloaded automatically
+ * when it is changed and saved.
+ *
+ * Add your own CSS or Less to fully customize Atom.
+ * If you are unfamiliar with Less, you can read more about it here:
+ * http://lesscss.org
+ */
+/*
+ * Examples
+ * (To see them, uncomment and save)
+ */
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.7.1/katex.min.css">
+
+    
+  </head>
+  <body class="markdown-preview-enhanced  " >
+
+  <p><center><br>
+<h1>Práctica de SOA</h1><br>
+<h2>Servicios SOAP usando JEE (Glassfish)</h2><br>
+<h3>Arquitecturas y Tecnologías del Software</h3><br>
+<br><br>
+<h4>Autores</h4><br>
+<b>David Lozano Jarque (NIU 1359958)</b><br>
+<b>Carlos González Cebrecos (NIU 1212586)</b><br>
+<b>Adrián Soria Bonilla (NIU 1360940)</b><br>
+<br><br>
+Escuela de Ingeniería, Universidad Autónoma de Barcelona<br>
+Curso 2016-2017<br>
+</center></p>
+<div style="page-break-after: always;"></div>
+<h1 id="introducci&#xF3;n">Introducción</h1>
+<p>En esta práctica, aprenderemos a crear y consumir servicios SOA usando el protocolo SOAP con intercambio de mensajes en XML sobre HTTP(S) con la ayuda de las tecnologías J2EE, y en particular, <em>Glassfish</em></p>
+<h2 id="preparaci&#xF3;n-del-entorno">Preparación del entorno</h2>
+<h3 id="instalaci&#xF3;n-de-glassfish">Instalación de Glassfish</h3>
+<p>En primer lugar, debemos instalar <em>Glassfish</em> para crear un servidor de aplicaciones de JEE donde lanzar nuestros servicios web SOAP en forma de contenedores Java.</p>
+<p>Para ello, nos descargamos la <a href="https://glassfish.java.net">distribución oficial de Glassfish</a>.</p>
+<p><center><img src="pics/soap_mandatory/00_glassfish_download.png" alt=""></center></p>
+<p>A continuación, instalaremos <em>Glassfish</em> en nuestro ordenador descomprimiendo el <em>.zip</em> en un directorio.</p>
+<blockquote>
+<p>Para este tutorial usaremos una máquina con S.O. Ubuntu 16.04 LTS. Las instrucciones para otros sistemas operativos son semejantes. También damos por supuesto que tenemos Eclipse para JEE y el último JDK instalados correctamente.</p>
+</blockquote>
+<p><center><img src="pics/soap_mandatory/01_glassfish_unzip.png" alt=""></center></p>
+<h3 id="integraci&#xF3;n-de-_glassfish_-en-_eclipse_">Integración de <em>Glassfish</em> en <em>Eclipse</em></h3>
+<p>Ahora debemos controlar la administración del servidor de <em>Glassfish</em> desde <em>Eclipse</em> para facilitar un entorno IDE completamente integrado. Para ello, en la pestaña de <em>Servers</em>, en la parte inferior de la pantalla, pulsamos sobre <em>[...] create a new server...</em></p>
+<p><center><img src="pics/soap_mandatory/02_eclipse_servers.png" alt=""></center></p>
+<blockquote>
+<p>Si la pestaña de <em>Servers</em> no aparece, la podemos hacer aparecer desde el menú principal <em>Window -&gt; Show View -&gt; Other...</em> y buscando <em>servers</em> allí</p>
+</blockquote>
+<p>A continuación, en el tipo de servidor seleccionamos <em>Glassfish Tools</em>. En el caso que no tengamos el conector de <em>Eclipse</em> para <em>Glassfish</em> instalado, éste se instalará automáticamente.</p>
+<p><center><img src="pics/soap_mandatory/03_eclipse_glassfish_tools.png" alt=""></center></p>
+<blockquote>
+<p>En el caso de que se cuelgue la instalación o nunca se llegue a completar, podemos instalar el complemento <em>Glassfish Tools</em> para Eclipse dentro del <em>Eclipse Marketplace</em>, en el menú <em>Help -&gt; Eclipse Marketplace</em></p>
+</blockquote>
+<p>Creamos un nuevo servidor local con los parámetros por defecto (<em>localhost</em> y nombre <em>Glassfish at localhost</em>)</p>
+<p><center><img src="pics/soap_mandatory/04_glassfish_server.png" alt=""></center></p>
+<p>En este paso del tutorial, le indicamos el nombre para referenciar el servidor, la ubicación de <em>Glassfish</em> (dónde descomprimimos anteriormente, la carpeta interna llamada <em>glassfish</em>) y finalmente el <em>JDK</em> a usar.<br>
+<center><img src="pics/soap_mandatory/05_glassfish_config.png" alt=""></center></p>
+<p>Ahora debemos crear un dominio para lanzar nuestro conjunto de aplicaciones web. Crearemos un dominio llamado <em>ATS</em>. Para ello, nos situamos en el directorio <code>glassfish/bin</code> dentro del directorio de instalación de <em>Glassfish</em> y ejecutamos el comando <code>asadmin</code> para crear un dominio:</p>
+<pre class="editor-colors lang-bash"><div class="line"><span class="mpe-syntax--source mpe-syntax--shell"><span>./asadmin&nbsp;create-domain&nbsp;ats</span></span></div></pre>
+<p><center><img src="pics/soap_mandatory/06_glassfish_domain.png" alt=""></center></p>
+<p>A continuación, <em>Eclipse</em> nos pedirá la ubicación del dominio (ubicado dentro de la instalación de <em>Glassfish</em> <code>glassfish/domains/\&lt;dominio\&gt;</code>). Por defecto el usuario es <code>admin</code> y no hay contraseña.</p>
+<p><center><img src="pics/soap_mandatory/07_glassfish_eclipse_domain.png" alt=""></center></p>
+<div style="page-break-after: always;"></div>
+<h2 id="creando-un-servicio-soap-y-su-definici&#xF3;n-wsdl">Creando un servicio SOAP y su definición WSDL</h2>
+<h3 id="creaci&#xF3;n-del-proyecto-para-un-servicio-soap">Creación del proyecto para un servicio SOAP</h3>
+<p>Creamos un nuevo proyecto de <em>Eclipse</em>, del tipo <em>Other</em> y en el desplegable, seleccionamos <em>Dynamic Web Project</em> dentro de la categoría <em>Web</em><br>
+<center><img src="pics/soap_mandatory/08_eclipse_new_project.png" alt=""></center></p>
+<p>Especificamos el nombre de proyecto, ubicación del proyecto y si hemos configurado bien el servidor, debería aparecer ya en el seleccionable <em>Target runtime</em> seleccionado por defecto.</p>
+<p><center><img src="pics/soap_mandatory/09_project_details.png" alt=""></center></p>
+<p>En la siguiente pantalla, vemos las carpetas a compilar. La carpeta <code>src</code> se compilará por defecto, que es más que suficiente.<br>
+<center><img src="pics/soap_mandatory/10_project_source.png" alt=""></center></p>
+<p>Finalmente, especificamos el directorio donde se guardarán los recursos web estáticos (<em>CSS</em>, <em>HTML</em>, <em>JS</em>,...). Pulsamos sobre <em>Generate web.xml deployment descriptor</em> para generar un descriptor de contenidos web a publicar por defecto (los situados en <em>WebContent</em>)<br>
+<center><img src="pics/soap_mandatory/11_project_contents.png" alt=""></center></p>
+<h3 id="desarrollo-del-servicio-soap">Desarrollo del servicio SOAP</h3>
+<p>Creamos una nueva clase que contendrá un servicio SOAP, llamado <em>TestWebService</em><br>
+<center><img src="pics/soap_mandatory/12_webservice_class.png" alt=""></center></p>
+<p>En dicha clase, indicamos las anotaciones <code>@WebService</code> para indicar que es un servicio web y <code>@WebMethod</code> en el método <code>public String sayHello(String name)</code> para indicar que es un servicio SOAP a ofrecer que acepta un parámetro (nombre) y devuelve otro parámetro saludando a dicho nombre (ambos de tipo <em>String</em>)<br>
+<center><img src="pics/soap_mandatory/13_first_ws.png" alt=""></center></p>
+<h3 id="publicaci&#xF3;n-de-la-descripci&#xF3;n-del-servicio-soap-via-wsdl">Publicación de la descripción del servicio SOAP via WSDL</h3>
+<p>Generamos un fichero <em>WSDL</em> para que clientes puedan consumir nuestro servicio con la operación <em>sayHello</em>. Para ello generamos un <em>WSDL</em> que describa este simple <em>webservice</em>. Pulsamos clic derecho en nuestro proyecto y <em>New -&gt; Other...</em>, allí seleccionamos <em>Web Service</em><br>
+<center><img src="pics/soap_mandatory/14_ws_endpoint.png" alt=""></center></p>
+<p>En este paso indicamos la clase creada anteriormente como clase que ofrecerá el servicio web y seleccionamos los niveles de configuración del servicio web (seleccionamos que el servicio se comience a ejecutar y no use proxy)</p>
+<p><center><img src="pics/soap_mandatory/15_ws_endpoint_details.png" alt=""></center></p>
+<p>Finalmente, seleccionamos las operaciones a exportar en el WSDL que describe el servicio (en nuestro caso sólo tenemos la operación <em>sayHello</em>) y finalizamos el asistente</p>
+<p><center><img src="pics/soap_mandatory/16_wsdl.png" alt=""></center></p>
+<h3 id="puesta-en-marcha-del-servidor-_glassfish_-con-el-servicio-soap">Puesta en marcha del servidor <em>Glassfish</em> con el servicio SOAP</h3>
+<p>Para lanzar el servidor <em>Glassfish</em> con nuestra aplicación publicada, clicamos en la pestaña de servidores clic derecho y pulsamos en <em>Add and Remove...</em>. Seleccionamos nuestro proyecto y lo añadimos a la lista de <em>Configured</em> pulsando en <em>Add</em>.</p>
+<p><center><img src="pics/soap_mandatory/17_add_remove_deploy.png" alt=""></center></p>
+<p>Finalmente, iniciamos el servidor haciendo clic derecho en el servidor y pulsando en <em>Start</em>. El resultado será parecido al siguiente (con las indicaciones <em>Started</em> y <em>Synchronized</em>)</p>
+<p><center><img src="pics/soap_mandatory/18_glassfish_start.png" alt=""></center></p>
+<h3 id="administraci&#xF3;n-del-servidor-_glassfish_">Administración del servidor <em>Glassfish</em></h3>
+<p>Para entrar en el panel de administración web de <em>Glassfish</em>, abrimos un navegador y escribimos la siguiente URL:<br>
+<center><a href="http://localhost:4848/">http://localhost:4848/</a></center></p>
+<p>Allí podremos ver nuestra aplicación publicada, en le menú de <em>Common Tasks</em>, dentro del desplegable <em>Applications</em>. Clicamos en ella para ver más detalles<br>
+<center><img src="pics/soap_mandatory/19_admin_console_soap_test.png" alt=""></center></p>
+<p>Ahora, buscaremos nuestra URL para obtener el WSDL y consumir nuestro servicio. Podemos verla si clicamos en <em>View Endpoint</em> en el <em>Endpoint</em> de la tabla de módulos y componentes</p>
+<p><center><img src="pics/soap_mandatory/20_endpoint.png" alt=""></center></p>
+<p>Allí encontraremos la URL para nuestro WSDL. Si pulsamos en él, nos dejará seleccionar la URL segura (HTTPs puerto 8081) e insegura (HTTP 8080) para obtener el WSDL. Seleccionaremos la opción insegura puesto que es un caso de desarrollo / test</p>
+<p><center><img src="pics/soap_mandatory/21_endpoint_view.png" alt=""></center></p>
+<blockquote>
+<p>Para aplicaciones en producción, podemos obtener un certificado gratis para nuestro dominio usando <em><a href="https://letsencrypt.org">Let's Encrypt</a></em> y configurarlo en <em>Glassfish</em> a través de esta misma consola de administración con la ayuda de la herramienta de <a href="https://docs.oracle.com/javase/6/docs/technotes/tools/windows/keytool.html">Java KeyTool</a></p>
+</blockquote>
+<p>Finalmente, visualizamos el XML que describe en lenguaje WSDL nuestro servicio SOAP.<br>
+<center><img src="pics/soap_mandatory/22_wsdl_xml.png" alt=""></center></p>
+<p>También podemos probar a usar nuestro servicio con el tester integrado cuya URL aparece en la penúltima figura. Aquí probamos nuestro servicio con la operación <em>sayHello</em> a un tal Francisco.<br>
+<center><img src="pics/soap_mandatory/23_tester_form.png" alt=""></center></p>
+<p>Podemos ver que, en efecto, funciona tal y cómo esperábamos</p>
+<p><center><img src="pics/soap_mandatory/24_tester_view.png" alt=""></center></p>
+<div style="page-break-after: always;"></div>
+<h2 id="consumici&#xF3;n-de-un-servicio-soap-usando-su-wsdl">Consumición de un servicio SOAP usando su WSDL</h2>
+<h3 id="creaci&#xF3;n-del-proyecto-consumidor-de-nuestro-servicio-soap">Creación del proyecto consumidor de nuestro servicio SOAP</h3>
+<p>En primer lugar, creamos un proyecto básico de Java usando Eclipse:<br>
+<center><img src="pics/soap_mandatory/25_soap_client_project.png" alt=""></center></p>
+<p>Una vez creado, abrimos una terminal, nos situamos dentro del directorio del nuevo proyecto y ejecutamos el comando <code>wsimport</code> ofrecido por <em>Java JDK</em> para generar código automático para consumir un SOAP dado un WSDL.</p>
+<pre class="editor-colors lang-bash"><div class="line"><span class="mpe-syntax--source mpe-syntax--shell"><span>wsimport&nbsp;-s&nbsp;src&nbsp;-d&nbsp;bin&nbsp;http://localhost:8080/soap-test/TestWebServiceService</span><span class="mpe-syntax--keyword mpe-syntax--operator mpe-syntax--glob mpe-syntax--shell"><span>?</span></span><span>wsdl</span></span></div></pre>
+<p><center><img src="pics/soap_mandatory/26_wsimport.png" alt=""></center></p>
+<blockquote>
+<p>Si no nos reconoce la herramienta <code>wsimport</code>, nos tenemos que asegurar que el directorio <code>bin</code> del <em>JDK</em> (<em>$JAVA_HOME</em>) se encuentra en la variable <em>PATH</em> del entorno.</p>
+</blockquote>
+<p>En el proyecto de <em>Eclipse</em>, refrescamos la carpeta <code>src</code>, clicando con el botón derecho encima de ella y pulsando en <em>Refresh</em>, veremos que se ha generado código para consumir el servicio web SOAP definido por el WSDL introducido en <code>wsimport</code></p>
+<p><center><img src="pics/soap_mandatory/27_refresh_soap_client.png" alt=""></center></p>
+<p>Creamos una clase cliente que consumirá el servicio SOAP usando el código generado. Marcamos <code>public static void main(String[] args)</code> para generar un método principal ejecutable al llamar nuestra aplicación.</p>
+<p><center><img src="pics/soap_mandatory/28_client_class.png" alt=""></center></p>
+<p>Introducimos el siguiente código en la clase para consumir el servicio. Usamos las clases generadas por <code>wsimport</code> para consumir el servicio de forma rápida y efectiva.</p>
+<p><center><img src="pics/soap_mandatory/29_client_code.png" alt=""></center></p>
+<p>Creamos una nueva <code>Run configuration</code> en <em>Eclipse</em> del tipo <em>Java Application</em> para compilar y ejecutar el cliente y comprobamos que la respuesta del <em>webservice</em> es correcta.<br>
+<center><img src="pics/soap_mandatory/30_result_after_run.png" alt=""></center></p>
+<h3 id="monitorizando-los-mensajes-soap-via-http">Monitorizando los mensajes SOAP via HTTP</h3>
+<p>A continuación vamos a inspeccionar los mensajes que se intercambian el cliente que consume el servicio SOAP y el servidor que lo ofrece. Para ello, en primer lugar, redirigiremos las llamadas para obtener el WSDL hacia el puerto 8081. Esto es porque en el puerto 8081 instalaremos un sniffer que nos ayudará a ver las peticiones que ejecuta (que éste redirigirá al puerto 8080 para continuar con el flujo habitual de comunicaciones).</p>
+<p>Realizamos los cambios en el fichero <code>TestWebServiceService.java</code><br>
+<center><img src="pics/soap_mandatory/31_tcp_ip_monitor_change_port.png" alt=""></center></p>
+<p>Ahora, habilitamos el <em>sniffer</em>, llamado <em>TCP/IP Monitor</em>, pulsando sobre <em>Window -&gt; Show View -&gt; Other...</em> en el menú principal y allí buscando <em>TCP/IP Monitor</em> en la sección <em>Debug</em> del desplegable.</p>
+<p><center><img src="pics/soap_mandatory/32_tcp_ip_monitor_window.png" alt=""></center></p>
+<p>En la nueva pestaña en la sección inferior de la ventana de <em>Eclipse</em> añadimos un nuevo monitor pulsando en la flecha de más opciones en la esquina superior derecha (ver siguiente imagen) y pulsando en <code>Properties</code></p>
+<p><center><img src="pics/soap_mandatory/33_tcp_ip_monitor_window.png" alt=""></center></p>
+<p>Allí, en la nueva ventana, pulsamos <em>Add</em> para añadir un nuevo monitor y lo definimos para que redirija las peticionse que recibirá en su puerto (<em>Local monitoring port</em>) a la misma máquina (<em>localhost</em>) en el puerto <em>Port</em> (<em>8080</em>). Seleccionamos el tipo <em>HTTP</em> puesto que no nos interesa el bajo nivel de <em>TCP/IP</em>.</p>
+<p><center><img src="pics/soap_mandatory/34_new_monitor.png" alt=""></center></p>
+<p>Añadimos el monitor y hacemos clic en <em>Start</em> para comenzar el monitor.</p>
+<p><center><img src="pics/soap_mandatory/35_start_monitor.png" alt=""></center></p>
+<p>A continuación, ejecutamos el cliente y veremos que la primera y única petición que aparece es la petición para obtener el WSDL (<code>GET /soap-test/TestWebServiceService?wsdl</code>), en cuya respuesta el servidor sirve el WSDL que vimos anteriormente. Los mensajes de <em>request</em> y <em>response</em> de la operación <em>sayHello</em> no aparecen</p>
+<p><center><img src="pics/soap_mandatory/36_wsdl_get.png" alt=""></center></p>
+<p>Esto es puesto que al obtener el WSDL, el WSDL indica el puerto 8080 para usar el servicio, por lo que la llamada a la operación <em>sayHello</em> la realiza a dicho puerto y el sniffer no intercepta la petición. Para poder realizar la inspección de las operaciones, debemos cambiar el puerto del WSDL.</p>
+<p>Dado que el WSDL en dicha URL se genera dinámicamente, obtendremos el WSDL, lo guardaremos como recurso estático con el puerto cambiado y redirigeremos las llamadas al nuevo WSDL con el puerto cambiado indicando que los servicios se encuentran en el puerto 8081</p>
+<p>Volvemos a visitar el WSDL con el navegador y guardamos el fichero en la ubicación <code>WebContent\wsdl\TestWebServiceService.wsdl</code>.<br>
+<center><img src="pics/soap_mandatory/37_cache_wsdl.png" alt=""></center></p>
+<p>Lo abrimos y cambiamos el puerto de 8080 a 8081 en el fichero que acabamos de guardar.<br>
+<center><img src="pics/soap_mandatory/38_redirect_webservice.png" alt=""></center></p>
+<p>Publicamos los cambios en <em>Glassfish</em> clicando con el botón derecho sobre el servidor y haciendo clic en <em>Publish</em>.</p>
+<p>Ahora modificamos la URL del WSDL en la clase <code>TestWebServiceService.java</code> para que en vez de visitar el WSDL generado dinámicamente, visite el estático que acabamos de guardar, subsituyendo la URL de la cuál cambiamos el puerto de <code>http://localhost:8081/soap-test/TestWebServiceService?wsdl</code> hacia <code>http://localhost:8081/soap-test/wsdl/TestWebServiceService.wsdl</code></p>
+<p>Ejecutamos de nuevo el cliente SOAP. Ahora ya vemos que el sniffer puede coger las dos peticiones, la del nuevo WSDL y la de la operación <em>sayHello</em>. En dicha operación, se hace un <em>POST</em> con el <em>Envelope SOAP</em> que contiene los parámetros a solicitar para la operación y la operación a solicitar y la respuesta contiene el <em>Envelope SOAP</em> con el objeto respuesta a la operación<br>
+<center><img src="pics/soap_mandatory/39_wsdl_tcp_ip_monitor_response.png" alt=""></center></p>
+<p><center><img src="pics/soap_mandatory/40_soap_req.png" alt=""></center></p>
+<p>Visualizamos los resultados en un editor de texto</p>
+<p><center><img src="pics/soap_mandatory/41_soap_req_good.png" alt=""></center></p>
+<h3 id="consumici&#xF3;n-de-un-servicio-soap-externo">Consumición de un servicio SOAP externo</h3>
+<p>A continuación crearemos un tercer proyecto para consumir un servicio SOAP público existente, usando las instrucciones para generar nuestro último cliente consumidor de un servicio SOAP.</p>
+<h4 id="el-servicio-soap">El servicio SOAP</h4>
+<p>Usaremos un servicio SOAP proporcionado por <a href="http://webservicex.net">WebServiceX</a> que obtiene la localización geográfica de una dirección IP. Vemos que nos proporcionan el <em>endpoint</em> donde se encuentra el WSDL.<br>
+<center><img src="pics/soap_optional/01_webservice_presentation.png" alt=""></center><br>
+Creamos un nuevo proyecto de Java como en el apartado anterior y usamos el comando <code>wsimport</code> dentro de la carpeta de este nuevo proyecto para generar el código que consumirá el servicio.</p>
+<p>El comando es el siguiente:</p>
+<pre class="editor-colors lang-bash"><div class="line"><span class="mpe-syntax--source mpe-syntax--shell"><span>wsimport&nbsp;-s&nbsp;src&nbsp;-d&nbsp;bin&nbsp;http://www.webservicex.net/geoipservice.asmx</span><span class="mpe-syntax--keyword mpe-syntax--operator mpe-syntax--glob mpe-syntax--shell"><span>?</span></span><span>WSDL</span></span></div></pre>
+<p>Refrescamos la carpeta <code>src</code> igual que en el anterior apartado y vemos que ya tenemos el código para consumir el servicio.<br>
+<center><img src="pics/soap_optional/02_classes_generated.png" alt=""></center></p>
+<p>Creamos una nueva clase y llamámos al servicio, siendo la dirección IP un parámetro del cliente, que nos imprimirá el país y su código identificativo dada una IP que geolocaliza<br>
+<center><img src="pics/soap_optional/03_webservice_client.png" alt=""></center></p>
+<p>A continuación creamos una neuva <code>Run configuration</code>, del tipo <em>Java Application</em> y indicamos en los parámetros la IP a geolocalizar</p>
+<p><center><img src="pics/soap_optional/05_run_config.png" alt=""></center></p>
+<p>Ejecutamos el cliente y nos devuelve la geolocalización de la IP pasada como argumento.<br>
+<center><img src="pics/soap_optional/04_webservice_response.png" alt=""></center></p>
+
+
+  </body>
+  
+</html>
