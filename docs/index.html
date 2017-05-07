@@ -739,7 +739,7 @@ pre.editor-colors .search-results .mpe-syntax--marker.current-result .region {
 }
 [data-presentation-preview-mode] .preview-slides .slide {
   position: relative;
-  background-color: #fff !important;
+  background-color: #fff;
   padding: 2em !important;
   margin-bottom: 12px;
   text-align: left !important;
@@ -831,7 +831,7 @@ pre.editor-colors .search-results .mpe-syntax--marker.current-result .region {
 
     
   </head>
-  <body class="markdown-preview-enhanced  " >
+  <body class="markdown-preview-enhanced   "  >
 
   <p><center><br>
 <h1>Práctica de SOA</h1><br>
@@ -971,6 +971,9 @@ Curso 2016-2017<br>
 <p><center><img src="pics/soap_mandatory/40_soap_req.png" alt=""></center></p>
 <p>Visualizamos los resultados en un editor de texto</p>
 <p><center><img src="pics/soap_mandatory/41_soap_req_good.png" alt=""></center></p>
+<h4 id="detalle-de-los-mensajes-soap">Detalle de los mensajes SOAP</h4>
+<p>En función de la versión de SOAP que se esté usando en el momento, podemos encontrar los mensajes SOAP situados dentro del tag <code>&lt;S:Envelope&gt;</code> <code>&lt;SOAP:Envelope&gt;</code>o bien <code>&lt;S:env&gt;</code>.</p>
+<p>En la petición vemos que en el cuerpo del mensaje soap se solicita la operación <code>sayHello</code>, con el argumento <code>Paco Paquito Poco Paquete</code> y en la respuesta obtenemos un objeto <code>sayHelloResponse</code> con valor de retorno <code>Hello Paco Paquito Poco Paquete</code></p>
 <h3 id="consumici&#xF3;n-de-un-servicio-soap-externo">Consumición de un servicio SOAP externo</h3>
 <p>A continuación crearemos un tercer proyecto para consumir un servicio SOAP público existente, usando las instrucciones para generar nuestro último cliente consumidor de un servicio SOAP.</p>
 <h4 id="el-servicio-soap">El servicio SOAP</h4>
@@ -987,6 +990,17 @@ Creamos un nuevo proyecto de Java como en el apartado anterior y usamos el coman
 <p><center><img src="pics/soap_optional/05_run_config.png" alt=""></center></p>
 <p>Ejecutamos el cliente y nos devuelve la geolocalización de la IP pasada como argumento.<br>
 <center><img src="pics/soap_optional/04_webservice_response.png" alt=""></center></p>
+<h2 id="repositorio">Repositorio</h2>
+<p>El código del <em>webservice</em> SOAP que proporciona la operación <code>sayHello</code> se encuentra en el siguiente repositorio de <em>GitHub</em>:</p>
+<p><center><a href="https://github.com/uab-projects/ats-soap-test">https://github.com/uab-projects/ats-soap-test</a></center></p>
+<p>El código del consumidor de dicho <em>webservice</em> se encuentra en el sigiuente repositorio:</p>
+<p><center><a href="https://github.com/uab-projects/ats-soap-client">https://github.com/uab-projects/ats-soap-client</a></center></p>
+<p>Finalmente, el código del consumidor del servicio de geolocalización de IPs mediante SOAP se encuentra en el siguiente repositorio:</p>
+<p><center><a href="https://github.com/uab-projects/ats-geoip-client">https://github.com/uab-projects/ats-geoip-client</a></center></p>
+<p>Esta documentación está presente en formato <em>Markdown</em>, <em>PDF</em> y <em>HTML</em> en:</p>
+<p><center><a href="https://github.com/uab-projects/ats-soap-test">https://github.com/uab-projects/ats-soap-test</a></center></p>
+<p>En el directorio <code>docs</code>, y visible online en la siguiente URL</p>
+<p><center><a href="https://uab.codes/ats-soap-test/">https://uab.codes/ats-soap-test/</a></center></p>
 
 
   </body>
